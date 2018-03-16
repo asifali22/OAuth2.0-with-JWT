@@ -1,0 +1,12 @@
+{
+    "db": {
+        "test": "mongodb://localhost:27017/datax_mongodb",
+        "prod": "mongodb://localhost:27017/datax_mongodb",
+        "dev": "mongodb://localhost:27017/datax_mongodb"
+    },
+    "port": {
+        "test": 3333,
+        "prod": 3000,
+        "dev": 5555
+    }
+}
