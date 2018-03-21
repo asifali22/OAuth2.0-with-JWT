@@ -2,7 +2,7 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import passportGoogleOauth from 'passport-google-oauth';
 const GoogleStrategy = passportGoogleOauth.OAuth2Strategy;
 
-import { findUserById, findUserByEmailCB, userModel, saveUser } from '../modules/Users/Model';
+import { findUserById, findUserByEmailCB, userModel, saveUser, findAndUpdate } from '../modules/Users/Model';
 import {
   googleAuth,
   JWT_SECRET
@@ -51,7 +51,18 @@ module.exports = (passport) => {
         return done(err, false);
       }
       if (user) {
-        return done(null, user);
+        // Add google id to local login details as well
+        findAndUpdate(user._id, {
+          google: {
+            id: profile.id
+          }
+        })
+          .then(saved_user => {
+            return done(null, user);
+          })
+          .catch(error => {
+            return done(error, false);
+          });
       } else {
         const newUser = new userModel({
           auth_method: 'google',

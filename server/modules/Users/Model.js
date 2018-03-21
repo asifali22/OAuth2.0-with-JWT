@@ -70,7 +70,9 @@ const findUserByEmail = (email) => userModel.findOne({ email });
 
 const findUserByEmailCB = (email, cb) => { userModel.findOne({ email }, cb); };
 
-const findUserById = (id, cb) => { userModel.findById(id, cb); };
+const findUserById = (id, cb) => userModel.findById(id, cb);
+
+const findAndUpdate = (id, updateObj) => userModel.findByIdAndUpdate(id, updateObj);
 
 module.exports = {
   userModel,
@@ -78,5 +80,6 @@ module.exports = {
   saveUser,
   findUserByEmail,
   findUserById,
-  findUserByEmailCB
+  findUserByEmailCB,
+  findAndUpdate
 };
