@@ -56,6 +56,11 @@ const userLogin = (email, password) => {
           .catch(error => {
             return Promise.reject(error);
           });
+      } else {
+        return Promise.reject({
+          statusCode: 401,
+          message: `User with ${email} email signed up using ${user.auth_method}, try the same to login`
+        });
       }
     })
     .catch(err => {
